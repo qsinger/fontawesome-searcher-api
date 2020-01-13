@@ -18,12 +18,14 @@ class MainSeeder extends Seeder
         $arrayCategories = [];
 
         $i=1;
+        $z = 1;
+        $y = 1;
         foreach ($categoriesContents as $key => $categoriesContent){
-            $y = 1;
+
             foreach ($categoriesContent['icons'] as $icon){
                 $arrayCategories[$i]['icons'][$y]['slug'] = $icon;
                 $arrayCategories[$i]['icons'][$y]['en_label'] = $iconsContents[$icon]['label'];
-                $z = 1;
+
                 $arrayCategories[$i]['icons'][$y]['searchs'][$z] = [];
                 foreach ($iconsContents[$icon]['search']['terms'] as $term){
 
@@ -43,10 +45,11 @@ class MainSeeder extends Seeder
         $newSearchTermId = 1;
         $newCategoryIconJoinId = 1;
         $newIconId = 1;
-        foreach ($arrayCategories as $categoryId => $category){
+        $newCategoryId = 1;
+        foreach ($arrayCategories as $category){
             $tempCategory = $category;
             unset($tempCategory["icons"]);
-            DB::table('categories')->updateOrInsert(['id'=>$categoryId], $tempCategory);
+            DB::table('categories')->updateOrInsert(['id'=>$newCategoryId], $tempCategory);
             $this->command->info('Category ' . $tempCategory['en_label'] . ' inserted');
 
             foreach ($category['icons'] as $icon){
@@ -65,10 +68,11 @@ class MainSeeder extends Seeder
 
                 $tempCategoryIconJoin = [];
                 $tempCategoryIconJoin['icon_id'] = $searchIcon->id;
-                $tempCategoryIconJoin['category_id'] = $categoryId;
+                $tempCategoryIconJoin['category_id'] = $newCategoryId;
                 $tempCategoryIconJoin['id'] = $newCategoryIconJoinId;
                 DB::table('categories_icons_join')->updateOrInsert(['id'=>$newCategoryIconJoinId], $tempCategoryIconJoin);
                 $newCategoryIconJoinId++;
+                $newCategoryId++;
 
                 foreach ($icon['searchs'] as $search){
                     if($search){

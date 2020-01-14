@@ -69,10 +69,8 @@ class MainSeeder extends Seeder
                 $tempCategoryIconJoin = [];
                 $tempCategoryIconJoin['icon_id'] = $searchIcon->id;
                 $tempCategoryIconJoin['category_id'] = $newCategoryId;
-                $tempCategoryIconJoin['id'] = $newCategoryIconJoinId;
                 DB::table('categories_icons_join')->updateOrInsert(['id'=>$newCategoryIconJoinId], $tempCategoryIconJoin);
                 $newCategoryIconJoinId++;
-                $newCategoryId++;
 
                 foreach ($icon['searchs'] as $search){
                     if($search){
@@ -89,12 +87,75 @@ class MainSeeder extends Seeder
                         $tempIconSeachJoin = [];
                         $tempIconSeachJoin['icon_id'] = $searchIcon->id;
                         $tempIconSeachJoin['search_term_id'] = $searchTerm->id;
-                        $tempIconSeachJoin['id'] = $newIconSearchJoinId;
                         DB::table('icons_search_terms_join')->updateOrInsert(['id'=>$newIconSearchJoinId], $tempIconSeachJoin);
                         $newIconSearchJoinId++;
                     }
                 }
             }
+
+            $newCategoryId++;
+        }
+
+        /* second part */
+
+        $arrayIcons = [];
+
+        $i=1;
+
+        foreach ($iconsContents as $key => $iconsContent){
+
+            $arrayIcons[$i]['en_label'] = $iconsContent['label'];
+            $arrayIcons[$i]['slug'] = $key;
+
+            $arrayIcons[$i]['searchs'][] = [];
+            foreach ($iconsContent['search']['terms'] as $term){
+
+                $arrayIcons[$i]['searchs'][] = $term;
+            }
+
+            $i++;
+        }
+
+        $newIconSearchJoinId = 1;
+        $newSearchTermId = 1;
+        $newIconId = 1;
+        foreach ($arrayIcons as $icon){
+
+            $tempsIcon = $icon;
+            unset($tempsIcon["searchs"]);
+
+            $searchIcon = \App\Models\Icon::where('slug', $tempsIcon['slug'])->first();
+
+            if($searchIcon == null){
+
+                DB::table('icons')->updateOrInsert(['id'=>$newIconId], $tempsIcon);
+                $this->command->info('Icon ' . $tempsIcon['en_label'] . ' inserted');
+                $searchIcon = \App\Models\Icon::find($newIconId);
+                $newIconId++;
+            }
+
+            foreach ($icon['searchs'] as $search){
+                if($search){
+                    $tempsSearch = [];
+                    $tempsSearch['en_slug'] = $search;
+
+                    $searchTerm = \App\Models\SearchTerm::where('en_slug', $search)->first();
+
+                    if($searchTerm == null){
+                        DB::table('search_terms')->updateOrInsert(['id'=>$newSearchTermId], $tempsSearch);
+                        $searchTerm = \App\Models\SearchTerm::find($newSearchTermId);
+                        $newSearchTermId++;
+                    }else{
+                        $this->command->warn('Icon ' . $searchTerm->en_label . ' already exists');
+                    }
+                    $tempIconSeachJoin = [];
+                    $tempIconSeachJoin['icon_id'] = $searchIcon->id;
+                    $tempIconSeachJoin['search_term_id'] = $searchTerm->id;
+                    DB::table('icons_search_terms_join')->updateOrInsert(['id'=>$newIconSearchJoinId], $tempIconSeachJoin);
+                    $newIconSearchJoinId++;
+                }
+            }
+
         }
     }
 }

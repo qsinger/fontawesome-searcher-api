@@ -4,6 +4,9 @@
     </IfModule>
 
     RewriteEngine On
+#
+#    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#    RewriteRule (.*) https://silver-gym.ch/$1 [R=301,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
@@ -18,4 +21,10 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  SetOutputFilter DEFLATE
+  SetEnvIfNoCase Request_URI \
+  \.(?:gif|jpe?g|png)$ no-gzip dont-vary
 </IfModule>

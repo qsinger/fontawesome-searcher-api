@@ -18,6 +18,7 @@ class IconResource extends JsonResource
     {
         return [
             'slug' => $this->slug,
+            'slug_to_display' => $this->slug_to_display,
             'en_label' => $this->en_label,
             'fr_label' => $this->fr_label
         ];

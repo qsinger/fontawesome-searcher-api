@@ -40,6 +40,7 @@ class MainSeeder extends Seeder
 
             foreach ($categoriesContent['icons'] as $icon){
                 $arrayCategories[$i]['icons'][$y]['slug'] = $icon;
+                $arrayCategories[$i]['icons'][$y]['slug_to_display'] = 'fas fa-' . $icon;
                 $arrayCategories[$i]['icons'][$y]['en_label'] = $iconsContents[$icon]['label'];
 
                 $arrayCategories[$i]['icons'][$y]['searchs'] = $iconsContents[$icon]['search']['terms'];
@@ -105,6 +106,7 @@ class MainSeeder extends Seeder
 
             $arrayIcons[$i]['en_label'] = $iconsContent['label'];
             $arrayIcons[$i]['slug'] = $key;
+            $arrayIcons[$i]['slug_to_display'] = 'fas fa-' . $key;
             $arrayIcons[$i]['searchs'] = $iconsContent['search']['terms'];
 
             $i++;

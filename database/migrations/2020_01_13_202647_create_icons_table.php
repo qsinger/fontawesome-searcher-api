@@ -20,6 +20,7 @@ class CreateIconsTable extends Migration
             $table->string('fr_label')->nullable();
             $table->string('en_label');
             $table->string('slug')->unique();
+            $table->string('slug_to_display')->unique();
             $table->text('search_terms')->nullable();
         });
     }

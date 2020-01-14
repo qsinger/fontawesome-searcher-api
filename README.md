@@ -4,12 +4,11 @@ Fontawesome Seacher API - Basicly made to help people finding icons dynamicly an
 
 Made with Laravel 6 and Fontawesome 5.12.0
 
-Available in French and English for now
+Available in English for now, French is coming soon
 
-Feel free to contribute
+Feel free to contribute or send languages pack
 
 Root URL :
-
 
 https://fontawesome-searcher-api.quentinsinger.ch/
 
@@ -32,3 +31,8 @@ https://fontawesome-searcher-api.quentinsinger.ch/api/5.12.0/icons?search={terms
 
 ##### Show a icon by icon id
 https://fontawesome-searcher-api.quentinsinger.ch/api/5.12.0/icons/{iconId}
+
+Release notes
+-
+##### 14.01.2020
++ First version online

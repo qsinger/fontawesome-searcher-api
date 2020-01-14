@@ -10,3 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact the technical support'
+    ], 404);
+});

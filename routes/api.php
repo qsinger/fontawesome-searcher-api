@@ -14,11 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::fallback(function(){
-    return response()->json([
-        'message' => 'Page Not Found. If error persists, contact the technical support'
-    ], 404);
-});
+
 
 Route::prefix('5.12.0')->group(function() {
 

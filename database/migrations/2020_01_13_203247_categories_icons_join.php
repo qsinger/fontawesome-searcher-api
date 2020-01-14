@@ -13,7 +13,7 @@ class CategoriesIconsJoin extends Migration
      */
     public function up()
     {
-        Schema::create('categories_icons_join', function (Blueprint $table) {
+        Schema::create('category_icon', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->softDeletes();

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class Category extends JsonResource
+class Category extends Model
 {
     use SoftDeletes;
 
+    public function icons(){
+        return $this->belongsToMany('App\Models\Icon')->orderBy('en_label');
+    }
 }

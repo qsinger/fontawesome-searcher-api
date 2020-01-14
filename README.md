@@ -1,6 +1,6 @@
 fontawesome-searcher-api
 =
-Fontawesome Seacher API - Basicly made to help people finding icons dynamicly and easily from fontawesome
+Fontawesome Seacher API - Made to help people find icons dynamicly and easily from fontawesome
 
 Made with Laravel 6 and Fontawesome 5.12.0
 

@@ -22,7 +22,7 @@ Route::prefix('5.12.0')->group(function() {
         'index', 'show'
     ]);
 
-    Route::get('/categories/{categorieId}/icons', 'API\IconController@getByCategory');
+    Route::get('/categories/{categorie}/icons', 'API\IconController@getByCategory');
 
     Route::apiResource('icons', 'API\IconController')->only([
         'index', 'show'

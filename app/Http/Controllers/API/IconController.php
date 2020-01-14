@@ -54,13 +54,13 @@ class IconController extends Controller
     /**
      * Display the specified resource by category id.
      *
-     * @param  int  $id
+     * @param  int  $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getByCategory($categoryId)
+    public function getByCategory($category)
     {
         /** @var Category $model */
-        $model = Category::findOrFail($categoryId);
+        $model = Category::findOrFail($category);
 
         return response()->json([
             'success' => true,
